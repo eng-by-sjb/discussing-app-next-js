@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 
 const Profile = () => {
   const session = useSession();
+
   return (
     <>
       <div>Profile</div>

@@ -1,4 +1,4 @@
-import NextAuth, { Session, User } from "next-auth";
+import NextAuth from "next-auth";
 import Github from "next-auth/providers/github";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "./db";
@@ -29,6 +29,7 @@ export const {
       if (session.user && user) {
         session.user.id = user.id;
       }
+
       return session;
     },
   },
