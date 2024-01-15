@@ -3,6 +3,8 @@ import * as actions from "@/actions";
 import { auth } from "@/auth";
 import Profile from "@/components/Profile";
 
+// TODO: revalidate homepage after every 15 secs
+
 export default async function Home() {
   const session = await auth();
 
