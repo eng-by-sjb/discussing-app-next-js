@@ -7,11 +7,11 @@ const paths = {
     return `/topic/${topicSlug}`;
   },
 
-  CreatePost(topicSlug: string) {
+  createPost(topicSlug: string) {
     return `/topic/${topicSlug}/posts/new`;
   },
 
-  ShownPost(topicSlug: string, postId: string) {
+  shownPost(topicSlug: string, postId: string) {
     return `/topic/${topicSlug}/post/${postId}`;
   },
 };
