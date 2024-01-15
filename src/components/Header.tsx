@@ -7,6 +7,9 @@ import {
   Input,
   Button,
   Avatar,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@nextui-org/react";
 import { auth } from "@/auth";
 import * as actions from "@/actions";
@@ -18,25 +21,43 @@ const Header = async () => {
   let authContent: React.ReactNode;
   if (session?.user) {
     authContent = (
-      <Avatar
-        isBordered
-        color="primary"
-        src={`${session?.user.image}`}
-        name={`${session?.user.name} profile photo`}></Avatar>
+      <Popover placement="bottom">
+        <PopoverTrigger>
+          <Avatar
+            isBordered
+            color="primary"
+            src={`${session?.user.image}`}
+            name={`${session?.user.name}'s profile photo`}></Avatar>
+        </PopoverTrigger>
+
+        <PopoverContent>
+          <div className="py-2 px-1">
+            <form action={actions.signOut}>
+              <Button type="submit" color="primary" variant="flat">
+                Sign Out
+              </Button>
+            </form>
+          </div>
+        </PopoverContent>
+      </Popover>
     );
   } else {
     authContent = (
       <>
         <NavbarItem>
-          <Button type="submit" color="primary" variant="flat">
-            Sign In
-          </Button>
+          <form action={actions.signIn}>
+            <Button type="submit" color="primary" variant="flat">
+              Sign In
+            </Button>
+          </form>
         </NavbarItem>
 
         <NavbarItem>
-          <Button type="submit" color="primary" variant="solid">
-            Sign Up
-          </Button>
+          <form action={actions.signIn}>
+            <Button type="submit" color="primary" variant="solid">
+              Sign Up
+            </Button>
+          </form>
         </NavbarItem>
       </>
     );
