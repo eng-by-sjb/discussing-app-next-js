@@ -1,68 +1,10 @@
 import Link from "next/link";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Input,
-  Button,
-  Avatar,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@nextui-org/react";
-import { auth } from "@/auth";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Input } from "@nextui-org/react";
 import * as actions from "@/actions";
 import paths from "@/utils/paths";
+import HeaderAuth from "./Header-Auth";
 
-const Header = async () => {
-  const session = await auth();
-
-  let authContent: React.ReactNode;
-  if (session?.user) {
-    authContent = (
-      <Popover placement="bottom">
-        <PopoverTrigger>
-          <Avatar
-            isBordered
-            color="primary"
-            src={`${session?.user.image}`}
-            name={`${session?.user.name}'s profile photo`}></Avatar>
-        </PopoverTrigger>
-
-        <PopoverContent>
-          <div className="py-2 px-1">
-            <form action={actions.signOut}>
-              <Button type="submit" color="primary" variant="flat">
-                Sign Out
-              </Button>
-            </form>
-          </div>
-        </PopoverContent>
-      </Popover>
-    );
-  } else {
-    authContent = (
-      <>
-        <NavbarItem>
-          <form action={actions.signIn}>
-            <Button type="submit" color="primary" variant="flat">
-              Sign In
-            </Button>
-          </form>
-        </NavbarItem>
-
-        <NavbarItem>
-          <form action={actions.signIn}>
-            <Button type="submit" color="primary" variant="solid">
-              Sign Up
-            </Button>
-          </form>
-        </NavbarItem>
-      </>
-    );
-  }
-
+const Header = () => {
   return (
     <div>
       <Navbar className="shadow mb-6">
@@ -78,7 +20,9 @@ const Header = async () => {
           </NavbarItem>
         </NavbarContent>
 
-        <NavbarContent justify="end">{authContent}</NavbarContent>
+        <NavbarContent justify="end">
+          <HeaderAuth></HeaderAuth>
+        </NavbarContent>
       </Navbar>
     </div>
   );
