@@ -1,6 +1,11 @@
 "use server";
 import { z } from "zod";
+import { type Topic } from "@prisma/client";
 import { auth } from "@/auth";
+import { db } from "@/db";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import paths from "@/utils/paths";
 
 const createTopicSchema = z.object({
   topicName: z
@@ -34,5 +39,22 @@ export async function createTopic(formState: FormState, formData: FormData): Pro
     return { errors: { generalErr: ["Login or Sign Up to create a topic."] } };
   }
 
-  return { errors: {} };
+  //add topic to database
+  let topic: Topic;
+  try {
+    topic = await db.topic.create({
+      data: {
+        slug: result.data.topicName,
+        description: result.data.description,
+      },
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { errors: { generalErr: [error.message] } };
+    }
+    return { errors: { generalErr: ["Something went wrong. Please try again later."] } };
+  }
+
+  revalidatePath(paths.home());
+  redirect(paths.topicShow(topic.slug));
 }
