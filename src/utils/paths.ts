@@ -4,15 +4,15 @@ const paths = {
   },
 
   topicShow(topicSlug: string) {
-    return `/topic/${topicSlug}`;
+    return `/topics/${topicSlug}`;
   },
 
   createPost(topicSlug: string) {
-    return `/topic/${topicSlug}/posts/new`;
+    return `/topics/${topicSlug}/posts/new`;
   },
 
   shownPost(topicSlug: string, postId: string) {
-    return `/topic/${topicSlug}/post/${postId}`;
+    return `/topics/${topicSlug}/post/${postId}`;
   },
 };
 

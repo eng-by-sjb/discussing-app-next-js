@@ -47,6 +47,12 @@ const CreateTopicForm = () => {
               isInvalid={!!formState.errors.description}
               errorMessage={formState.errors.description?.join(", ")}></Textarea>
 
+            {formState.errors.generalErr && (
+              <div className="text-center p-2 text-slate-600 bg-red-100 border border-red-500 rounded-lg">
+                {formState.errors.generalErr}
+              </div>
+            )}
+
             <Button color="primary" type="submit">
               Create
             </Button>

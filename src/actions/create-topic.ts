@@ -1,5 +1,6 @@
 "use server";
 import { z } from "zod";
+import { auth } from "@/auth";
 
 const createTopicSchema = z.object({
   topicName: z
@@ -13,6 +14,7 @@ type FormState = {
   errors: {
     topicName?: string[];
     description?: string[];
+    generalErr?: string[];
   };
 };
 
@@ -25,7 +27,12 @@ export async function createTopic(formState: FormState, formData: FormData): Pro
     return { errors: result.error.flatten().fieldErrors };
   }
 
-  // TODO:  revalidate home page
+  //check if user is logged in
+  const session = await auth();
+
+  if (!session || !session?.user) {
+    return { errors: { generalErr: ["Login or Sign Up to create a topic."] } };
+  }
 
   return { errors: {} };
 }
