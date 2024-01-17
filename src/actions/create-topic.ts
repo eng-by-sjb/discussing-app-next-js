@@ -10,7 +10,6 @@ const createTopicSchema = z.object({
 });
 
 type FormState = {
-  success: boolean;
   errors: {
     topicName?: string[];
     description?: string[];
@@ -23,10 +22,10 @@ export async function createTopic(formState: FormState, formData: FormData): Pro
   const result = createTopicSchema.safeParse({ topicName, description });
 
   if (!result.success) {
-    return { success: false, errors: result.error.flatten().fieldErrors };
+    return { errors: result.error.flatten().fieldErrors };
   }
 
   // TODO:  revalidate home page
 
-  return { success: true, errors: {} };
+  return { errors: {} };
 }

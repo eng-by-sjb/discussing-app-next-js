@@ -13,7 +13,6 @@ import { createTopic } from "@/actions";
 
 const CreateTopicForm = () => {
   const [formState, action] = useFormState(createTopic, {
-    success: true,
     errors: {},
   });
 
@@ -35,12 +34,18 @@ const CreateTopicForm = () => {
               label="Topic Name"
               labelPlacement="outside"
               placeholder="Topic Name"
+              isRequired
+              isInvalid={!!formState.errors.topicName}
+              errorMessage={formState.errors.topicName?.join(", ")}
             />
             <Textarea
               name="description"
               label="Description"
               labelPlacement="outside"
-              placeholder="Describe your Topic"></Textarea>
+              placeholder="Describe your Topic"
+              isRequired
+              isInvalid={!!formState.errors.description}
+              errorMessage={formState.errors.description?.join(", ")}></Textarea>
 
             <Button color="primary" type="submit">
               Create
