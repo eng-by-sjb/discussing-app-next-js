@@ -11,6 +11,7 @@ import {
 } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import * as actions from "@/actions";
+import FormButton from "./common/Form-Button";
 
 const HeaderAuth = () => {
   const session = useSession();
@@ -45,17 +46,21 @@ const HeaderAuth = () => {
         <>
           <NavbarItem>
             <form action={actions.signIn}>
-              <Button type="submit" color="primary" variant="flat">
-                Sign In
-              </Button>
+              <FormButton
+                text="Sign In"
+                loadingText="Signing In"
+                color="primary"
+                variant="flat"></FormButton>
             </form>
           </NavbarItem>
 
           <NavbarItem>
             <form action={actions.signIn}>
-              <Button type="submit" color="primary" variant="solid">
-                Sign Up
-              </Button>
+              <FormButton
+                text="Sign Up"
+                loadingText="Signing Up"
+                color="primary"
+                variant="solid"></FormButton>
             </form>
           </NavbarItem>
         </>
