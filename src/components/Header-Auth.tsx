@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import * as actions from "@/actions";
-import FormButton from "./common/Form-Button";
+import FormButton from "./reused/Form-Button";
 
 const HeaderAuth = () => {
   const session = useSession();

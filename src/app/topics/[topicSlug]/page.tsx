@@ -1,3 +1,4 @@
+import PostCreateForm from "@/components/posts/Post-Create-Form";
 import { Divider } from "@nextui-org/react";
 
 type Params = {
@@ -16,6 +17,7 @@ const ShowSingleTopicPage = ({ params }: Params) => {
       </div>
 
       <aside className="text-center flex flex-col gap-4">
+        <PostCreateForm></PostCreateForm>
         <article className="border shadow py-2 px-2 rounded-lg">
           <h3 className="text-xl">Topics</h3>
           <Divider className="my-2"></Divider>
