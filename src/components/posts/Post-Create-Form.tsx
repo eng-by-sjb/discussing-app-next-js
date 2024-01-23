@@ -46,6 +46,13 @@ const PostCreateForm = () => {
               isInvalid={!!formState.errors.content}
               errorMessage={formState.errors.content?.join(", ")}
             />
+
+            {formState.errors.generalErr && (
+              <div className="text-center p-2 text-slate-600 bg-red-100 border border-red-500 rounded-lg">
+                {formState.errors.generalErr}
+              </div>
+            )}
+
             <FormButton
               text="Create Post"
               loadingText="Creating Post"
