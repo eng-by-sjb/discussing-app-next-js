@@ -31,13 +31,13 @@ const PostCreateForm = ({ topicSlug }: { topicSlug: string }) => {
             <h3 className="text-lg text-center">Create a Post</h3>
 
             <Input
-              name="title"
-              label="Title"
-              placeholder="Title"
+              name="postTitle"
+              label="Post Title"
+              placeholder="Post Title"
               labelPlacement="outside"
               isRequired
-              isInvalid={!!formState.errors.title}
-              errorMessage={formState.errors.title?.join(", ")}
+              isInvalid={!!formState.errors.postTitle}
+              errorMessage={formState.errors.postTitle?.join(", ")}
             />
             <Textarea
               name="content"

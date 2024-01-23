@@ -3,7 +3,7 @@ const paths = {
     return `/`;
   },
 
-  topicShow(topicSlug: string) {
+  showTopic(topicSlug: string) {
     return `/topics/${topicSlug}`;
   },
 
@@ -11,8 +11,8 @@ const paths = {
     return `/topics/${topicSlug}/posts/new`;
   },
 
-  shownPost(topicSlug: string, postId: string) {
-    return `/topics/${topicSlug}/post/${postId}`;
+  showPost(topicSlug: string, postId: string) {
+    return `/topics/${topicSlug}/posts/${postId}`;
   },
 };
 

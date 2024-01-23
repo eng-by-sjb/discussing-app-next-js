@@ -8,7 +8,7 @@ const TopicList = async () => {
 
   const renderTopics = topics.map(({ id, slug }) => {
     return (
-      <Link key={id} href={paths.topicShow(slug)}>
+      <Link key={id} href={paths.showTopic(slug)}>
         <Chip color="warning" variant="flat">
           {slug}
         </Chip>

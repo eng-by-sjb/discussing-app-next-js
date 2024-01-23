@@ -1,17 +1,21 @@
 "use server";
 
 import { auth } from "@/auth";
-import { db } from "@/db";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import z from "zod";
+import { db } from "@/db";
+import { type Post } from "@prisma/client";
+import paths from "@/utils/paths";
 
 const createPostSchema = z.object({
-  title: z.string().min(4),
+  postTitle: z.string().min(4),
   content: z.string().min(8),
 });
 
 type FormState = {
   errors: {
-    title?: string[];
+    postTitle?: string[];
     content?: string[];
     generalErr?: string[];
   };
@@ -22,9 +26,9 @@ export async function createPost(
   formState: FormState,
   formData: FormData
 ): Promise<FormState> {
-  const { title, content } = Object.fromEntries(formData.entries());
+  const { postTitle, content } = Object.fromEntries(formData.entries());
 
-  const result = createPostSchema.safeParse({ title, content });
+  const result = createPostSchema.safeParse({ postTitle, content });
 
   if (!result.success) {
     return { errors: result.error.flatten().fieldErrors };
@@ -48,7 +52,24 @@ export async function createPost(
     };
   }
 
-  return { errors: {} };
+  let post: Post;
 
-  // TODO:  revalidate topic show page
+  try {
+    post = await db.post.create({
+      data: {
+        title: result.data.postTitle.toLowerCase(),
+        content: result.data.content.toLowerCase(),
+        topicId: topic.id,
+        userId: session.user.id,
+      },
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { errors: { generalErr: [error.message] } };
+    }
+    return { errors: { generalErr: ["Something went wrong. Please try again later."] } };
+  }
+
+  revalidatePath(paths.showTopic(topicSlug));
+  redirect(paths.showPost(topicSlug, post.id));
 }

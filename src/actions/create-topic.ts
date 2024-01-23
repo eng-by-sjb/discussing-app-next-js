@@ -56,5 +56,5 @@ export async function createTopic(formState: FormState, formData: FormData): Pro
   }
 
   revalidatePath(paths.home());
-  redirect(paths.topicShow(topic.slug));
+  redirect(paths.showTopic(topic.slug));
 }
