@@ -12,8 +12,10 @@ import FormButton from "../reused/Form-Button";
 import { createPost } from "@/actions";
 import { useFormState } from "react-dom";
 
-const PostCreateForm = () => {
-  const [formState, action] = useFormState(createPost, { errors: {} });
+const PostCreateForm = ({ topicSlug }: { topicSlug: string }) => {
+  const [formState, action] = useFormState(createPost.bind(null, topicSlug), {
+    errors: {},
+  });
 
   return (
     <Popover backdrop="opaque">
