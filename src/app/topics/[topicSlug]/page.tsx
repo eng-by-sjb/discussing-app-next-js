@@ -1,4 +1,4 @@
-import PostCreateForm from "@/components/posts/Post-Create-Form";
+import PostCreateForm from "@/components/posts/Create-Post-Form";
 import { Divider } from "@nextui-org/react";
 
 type Params = {
