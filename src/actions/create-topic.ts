@@ -44,8 +44,8 @@ export async function createTopic(formState: FormState, formData: FormData): Pro
   try {
     topic = await db.topic.create({
       data: {
-        slug: result.data.topicName,
-        description: result.data.description,
+        slug: result.data.topicName.toLowerCase(),
+        description: result.data.description.toLowerCase(),
       },
     });
   } catch (error: unknown) {
