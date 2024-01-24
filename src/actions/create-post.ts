@@ -57,7 +57,7 @@ export async function createPost(
   try {
     post = await db.post.create({
       data: {
-        title: result.data.postTitle.toLowerCase(),
+        postTitle: result.data.postTitle.toLowerCase(),
         content: result.data.content.toLowerCase(),
         topicId: topic.id,
         userId: session.user.id,
