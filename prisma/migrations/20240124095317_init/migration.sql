@@ -52,7 +52,7 @@ CREATE TABLE "Topic" (
 -- CreateTable
 CREATE TABLE "Post" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "title" TEXT NOT NULL,
+    "postTitle" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "topicId" TEXT NOT NULL,

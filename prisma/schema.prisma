@@ -65,11 +65,11 @@ model Topic {
 }
 
 model Post {
-  id      String @id @default(cuid())
-  title   String
-  content String
-  userId  String
-  topicId String
+  id        String @id @default(cuid())
+  postTitle String
+  content   String
+  userId    String
+  topicId   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
