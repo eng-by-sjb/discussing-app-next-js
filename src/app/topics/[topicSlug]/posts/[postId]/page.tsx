@@ -5,6 +5,10 @@ type Params = {
 };
 
 const ShowSinglePostPage = ({ params }: Params) => {
-  return <div>ShowPost: {params.postId}</div>;
+  return (
+    <div>
+      <div>ShowPost: {params.postId}</div>
+    </div>
+  );
 };
 export default ShowSinglePostPage;

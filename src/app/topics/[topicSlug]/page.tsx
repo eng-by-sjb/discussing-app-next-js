@@ -1,4 +1,6 @@
 import PostCreateForm from "@/components/posts/Create-Post-Form";
+import PostsList from "@/components/posts/List-Posts";
+import { fetchPostsBySlug } from "@/db/queries/posts";
 import { Divider } from "@nextui-org/react";
 
 type Params = {
@@ -14,6 +16,7 @@ const ShowSingleTopicPage = ({ params }: Params) => {
     <section className="grid grid-cols-4 gap-4 p-4">
       <div className="col-span-3 border rounded">
         <h1 className="text-2xl font-bold mb-2">Topics: {topicSlug}</h1>
+        <PostsList fetchPosts={() => fetchPostsBySlug(params.topicSlug)}></PostsList>
       </div>
 
       <aside className="text-center flex flex-col gap-4">
