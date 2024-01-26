@@ -1,8 +1,6 @@
+import CommentCreateForm from "@/components/comments/create-comment-form";
 import ShowPost from "@/components/posts/Show-Post";
-import paths from "@/utils/paths";
-import Link from "next/link";
-import { FaBackspace } from "react-icons/fa";
-import { ImCircleLeft } from "react-icons/im";
+import { Divider } from "@nextui-org/react";
 
 type Params = {
   params: {
@@ -15,6 +13,9 @@ const ShowSinglePostPage = ({ params }: Params) => {
   return (
     <div className="space-y-3">
       <ShowPost postId={params.postId} topicSlug={params.topicSlug}></ShowPost>
+      <Divider className="my-2"></Divider>
+
+      <CommentCreateForm postId={params.postId} startOpen={true}></CommentCreateForm>
     </div>
   );
 };
