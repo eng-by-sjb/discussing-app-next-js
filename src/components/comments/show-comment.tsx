@@ -50,7 +50,7 @@ const ShowComment = async ({ postId, commentId }: ShowCommentProp) => {
         </div>
       </div>
 
-      <div className="ml-4">{childrenComment}</div>
+      <div className="ml-4 mt-4">{childrenComment}</div>
     </div>
   );
 };

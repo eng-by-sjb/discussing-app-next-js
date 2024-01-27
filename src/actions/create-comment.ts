@@ -2,7 +2,9 @@
 
 import { auth } from "@/auth";
 import { db } from "@/db";
+import paths from "@/utils/paths";
 import { Comment } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import z from "zod";
 
 type CreateCommentFormState = {
@@ -46,8 +48,23 @@ export async function createComment(
         userId: session.user.id,
       },
     });
-  } catch (error) {}
-  //TODO : revalidate show single post page
+  } catch (error) {
+    return { errors: { generalErr: ["Something went wrong"] }, success: false };
+  }
+
+  const topic = await db.topic.findFirst({
+    where: { posts: { some: { id: postId } } },
+  });
+
+  if (!topic) {
+    return {
+      errors: {
+        generalErr: ["Failed to revalidate topic"],
+      },
+    };
+  }
+
+  revalidatePath(paths.showPost(topic.slug, postId));
 
   return { errors: {}, success: true };
 }
