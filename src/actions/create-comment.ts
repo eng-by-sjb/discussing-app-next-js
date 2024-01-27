@@ -1,5 +1,8 @@
 "use server";
 
+import { auth } from "@/auth";
+import { db } from "@/db";
+import { Comment } from "@prisma/client";
 import z from "zod";
 
 type CreateCommentFormState = {
@@ -27,6 +30,23 @@ export async function createComment(
     return { errors: result.error.flatten().fieldErrors, success: result.success };
   }
 
+  const session = await auth();
+
+  if (!session?.user) {
+    return { errors: { generalErr: ["You must be logged in to comment"] }, success: false };
+  }
+
+  let comment: Comment;
+  try {
+    comment = await db.comment.create({
+      data: {
+        content: result.data.content.toLowerCase(),
+        postId,
+        parentId,
+        userId: session.user.id,
+      },
+    });
+  } catch (error) {}
   //TODO : revalidate show single post page
 
   return { errors: {}, success: true };
