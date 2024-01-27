@@ -57,12 +57,6 @@ export default function CommentCreateForm({
             {formState.errors.generalErr?.join(", ")}
           </div>
         )}
-
-        {/* <FormButton
-          text="Create Comment"
-          loadingText="Creating Comment"
-          color="primary"
-          variant="ghost"></FormButton> */}
       </div>
     </form>
   );

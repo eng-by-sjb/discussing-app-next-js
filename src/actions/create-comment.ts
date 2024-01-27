@@ -10,14 +10,24 @@ type CreateCommentFormState = {
   success?: boolean;
 };
 
+const createCommentFormSchema = z.object({
+  content: z.string().min(3),
+});
+
 export async function createComment(
   { postId, parentId }: { postId: string; parentId?: string },
   formState: CreateCommentFormState,
   formData: FormData
 ): Promise<CreateCommentFormState> {
-  //TODO : revalidate show single post page
+  const { content } = Object.fromEntries(formData);
 
-  console.log("comment");
+  const result = createCommentFormSchema.safeParse({ content });
+
+  if (!result.success) {
+    return { errors: result.error.flatten().fieldErrors, success: result.success };
+  }
+
+  //TODO : revalidate show single post page
 
   return { errors: {}, success: true };
 }
