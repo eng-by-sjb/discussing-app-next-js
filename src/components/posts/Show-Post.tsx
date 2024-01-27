@@ -24,7 +24,7 @@ export default async function ShowPost({ postId, topicSlug }: Props) {
   const content = `${post.content.slice(0, 1).toUpperCase() + post.content.slice(1)}`;
 
   return (
-    <div className="m-4">
+    <div className=" mb-8">
       <div className="grid grid-cols-3 gap-2 mt-8 mb-4  ">
         <Link
           href={paths.showTopic(topicSlug)}

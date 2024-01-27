@@ -62,13 +62,13 @@ export default function CommentCreateForm({
   );
 
   return (
-    <div>
+    <>
       {!isOpen && (
         <Button size="sm" variant="light" onClick={() => setIsOpen(!isOpen)}>
           Reply
         </Button>
       )}
       {isOpen && form}
-    </div>
+    </>
   );
 }
