@@ -1,7 +1,8 @@
 import CommentCreateForm from "@/components/comments/create-comment-form";
 import ListComments from "@/components/comments/list-comments";
 import ShowPost from "@/components/posts/Show-Post";
-import { Divider } from "@nextui-org/react";
+import ShowPostLoading from "@/components/posts/Show-Post-Loading";
+import { Suspense } from "react";
 
 type Params = {
   params: {
@@ -14,7 +15,9 @@ const ShowSinglePostPage = ({ params }: Params) => {
   const { postId, topicSlug } = params;
   return (
     <div className="space-y-3">
-      <ShowPost postId={postId} topicSlug={topicSlug}></ShowPost>
+      <Suspense fallback={<ShowPostLoading />}>
+        <ShowPost postId={postId} topicSlug={topicSlug}></ShowPost>
+      </Suspense>
       {/* <Divider className="my-2"></Divider> */}
 
       <CommentCreateForm postId={postId} startOpen={true}></CommentCreateForm>

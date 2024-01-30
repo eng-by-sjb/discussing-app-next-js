@@ -10,6 +10,10 @@ type Props = {
 };
 
 export default async function ShowPost({ postId, topicSlug }: Props) {
+  await new Promise((resolve, reject) => {
+    setTimeout(resolve, 3000);
+  });
+
   const post = await db.post.findFirst({
     where: {
       id: postId,
