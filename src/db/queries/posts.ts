@@ -14,6 +14,7 @@ export async function fetchPostsBySlug(slug: string): Promise<PostsListDisplayDa
         slug,
       },
     },
+    orderBy: { createdAt: "desc" },
     include: {
       topic: { select: { slug: true } },
       user: { select: { name: true } },
@@ -26,6 +27,7 @@ export async function fetchPostsBySlug(slug: string): Promise<PostsListDisplayDa
 
 export async function fetchAllPosts(): Promise<PostsListDisplayData[]> {
   let posts = await db.post.findMany({
+    orderBy: { comments: { _count: "desc" } },
     include: {
       topic: { select: { slug: true } },
       user: { select: { name: true } },

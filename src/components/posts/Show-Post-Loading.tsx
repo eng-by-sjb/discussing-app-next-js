@@ -7,7 +7,7 @@ const ShowPostLoading = () => {
         <Skeleton className="h-8 w-auto"></Skeleton>
       </div>
       <div className="p-4 border rounded">
-        <Skeleton className="h-20 w-70 p-4  "></Skeleton>
+        <Skeleton className="h-20 w-70 p-4"></Skeleton>
       </div>
     </div>
   );
