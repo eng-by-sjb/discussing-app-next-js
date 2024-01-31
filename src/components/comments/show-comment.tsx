@@ -1,8 +1,8 @@
 import { fetchCommentsByPostId } from "@/db/queries/fetch-comments";
 import { timestampFormatter } from "@/utils/timestamp-formatter";
-import { Divider } from "@nextui-org/react";
 import Image from "next/image";
 import CommentCreateForm from "./create-comment-form";
+import CommentMenu from "./Comment-Menu-Dropdown";
 
 type ShowCommentProp = {
   postId: string;
@@ -39,9 +39,12 @@ const ShowComment = async ({ postId, commentId }: ShowCommentProp) => {
           <div className="ml-4 ">
             <div className="flex justify-between mb-1">
               <p className="text-sm font-medium text-gray-500">{comment.user.name}</p>
-              <p className="text-sm font-medium text-gray-500">
-                {timestampFormatter(comment.createdAt)}
-              </p>
+              <div className="flex gap-x-2 justify-center items-center">
+                <p className="text-sm font-medium text-gray-500">
+                  {timestampFormatter(comment.createdAt)}
+                </p>
+                <CommentMenu />
+              </div>
             </div>
 
             <p className="text-gray-900 mb-2">{comment.content}</p>
