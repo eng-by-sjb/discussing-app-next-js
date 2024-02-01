@@ -4,14 +4,23 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@
 import { GoKebabHorizontal } from "react-icons/go";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useFormState } from "react-dom";
+import { deleteComment } from "@/actions";
 
-const CommentMenuDropdown = () => {
+type CommentMenuDropdownProps = {
+  commentId: string;
+  userId: string;
+};
+
+const CommentMenuDropdown = ({ commentId, userId }: CommentMenuDropdownProps) => {
+  const [deleteFormState, deleteAction] = useFormState(deleteComment.bind(null, { commentId }), {
+    errors: {},
+  });
+
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button variant="light" isIconOnly startContent={<GoKebabHorizontal />}>
-          {/* <GoKebabHorizontal /> */}
-        </Button>
+        <Button variant="light" isIconOnly startContent={<GoKebabHorizontal />}></Button>
       </DropdownTrigger>
 
       <DropdownMenu>
@@ -25,7 +34,7 @@ const CommentMenuDropdown = () => {
           color="danger"
           key="delete"
           startContent={<RiDeleteBin6Line />}>
-          <form>
+          <form action={deleteAction}>
             <button type="submit">Delete</button>
           </form>
         </DropdownItem>

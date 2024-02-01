@@ -2,7 +2,8 @@ import { fetchCommentsByPostId } from "@/db/queries/fetch-comments";
 import { timestampFormatter } from "@/utils/timestamp-formatter";
 import Image from "next/image";
 import CommentCreateForm from "./create-comment-form";
-import CommentMenu from "./Comment-Menu-Dropdown";
+import CommentMenuDropdown from "./Comment-Menu-Dropdown";
+import { auth } from "@/auth";
 
 type ShowCommentProp = {
   postId: string;
@@ -11,6 +12,8 @@ type ShowCommentProp = {
 
 const ShowComment = async ({ postId, commentId }: ShowCommentProp) => {
   const comments = await fetchCommentsByPostId(postId);
+
+  const session = await auth();
 
   const comment = comments.find((comment) => comment.id === commentId);
 
@@ -43,7 +46,9 @@ const ShowComment = async ({ postId, commentId }: ShowCommentProp) => {
                 <p className="text-sm font-medium text-gray-500">
                   {timestampFormatter(comment.createdAt)}
                 </p>
-                <CommentMenu />
+                {session?.user.id === comment.userId && (
+                  <CommentMenuDropdown commentId={comment.id} userId={comment.userId} />
+                )}
               </div>
             </div>
 
