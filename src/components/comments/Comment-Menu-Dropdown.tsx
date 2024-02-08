@@ -10,33 +10,48 @@ import { deleteComment } from "@/actions";
 type CommentMenuDropdownProps = {
   commentId: string;
   userId: string;
+  topicSlug: string;
 };
 
-const CommentMenuDropdown = ({ commentId, userId }: CommentMenuDropdownProps) => {
-  const [deleteFormState, deleteAction] = useFormState(deleteComment.bind(null, { commentId }), {
-    errors: {},
-  });
+const CommentMenuDropdown = ({ commentId, userId, topicSlug }: CommentMenuDropdownProps) => {
+  const [deleteFormState, deleteAction] = useFormState(
+    deleteComment.bind(null, { commentId, userId, topicSlug }),
+    {
+      errors: {},
+    }
+  );
 
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button variant="light" isIconOnly startContent={<GoKebabHorizontal />}></Button>
+        <Button
+          variant="light"
+          size="sm"
+          isIconOnly
+          startContent={<GoKebabHorizontal size={17} />}></Button>
       </DropdownTrigger>
 
       <DropdownMenu>
-        <DropdownItem key="delete" startContent={<FiEdit />}>
-          <form>
-            <button type="submit">Edit</button>
-          </form>
+        <DropdownItem key="edit" startContent={<FiEdit />}>
+          <div>
+            <form>
+              <button type="submit">Edit</button>
+            </form>
+          </div>
         </DropdownItem>
+
         <DropdownItem
           className="text-danger"
-          color="danger"
           key="delete"
+          color="danger"
           startContent={<RiDeleteBin6Line />}>
-          <form action={deleteAction}>
-            <button type="submit">Delete</button>
-          </form>
+          <div>
+            <form action={deleteAction}>
+              <button type="submit" className="w-full text-left">
+                Delete
+              </button>
+            </form>
+          </div>
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

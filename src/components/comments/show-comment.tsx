@@ -8,9 +8,10 @@ import { auth } from "@/auth";
 type ShowCommentProp = {
   postId: string;
   commentId: string;
+  topicSlug: string;
 };
 
-const ShowComment = async ({ postId, commentId }: ShowCommentProp) => {
+const ShowComment = async ({ postId, commentId, topicSlug }: ShowCommentProp) => {
   const comments = await fetchCommentsByPostId(postId);
 
   const session = await auth();
@@ -20,10 +21,18 @@ const ShowComment = async ({ postId, commentId }: ShowCommentProp) => {
   if (!comment) {
     return null;
   }
+  comment.post.topic.slug;
 
   const childrenComment = comments.map((comment) => {
     if (comment.parentId === commentId) {
-      return <ShowComment key={comment.id} postId={postId} commentId={comment.id} />;
+      return (
+        <ShowComment
+          key={comment.id}
+          postId={postId}
+          commentId={comment.id}
+          topicSlug={comment.post.topic.slug}
+        />
+      );
     }
     return null;
   });
@@ -42,12 +51,16 @@ const ShowComment = async ({ postId, commentId }: ShowCommentProp) => {
           <div className="ml-4 ">
             <div className="flex justify-between mb-1">
               <p className="text-sm font-medium text-gray-500">{comment.user.name}</p>
-              <div className="flex gap-x-2 justify-center items-center">
+              <div className="flex gap-x-2 justify-center items-center p-2">
                 <p className="text-sm font-medium text-gray-500">
                   {timestampFormatter(comment.createdAt)}
                 </p>
                 {session?.user.id === comment.userId && (
-                  <CommentMenuDropdown commentId={comment.id} userId={comment.userId} />
+                  <CommentMenuDropdown
+                    commentId={comment.id}
+                    userId={comment.userId}
+                    topicSlug={topicSlug}
+                  />
                 )}
               </div>
             </div>

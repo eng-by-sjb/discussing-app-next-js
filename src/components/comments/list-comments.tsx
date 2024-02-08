@@ -16,7 +16,13 @@ const ListComments = async ({ postId }: ListCommentsProps) => {
   const parentComments = comments.filter((c) => c.parentId === null);
 
   const renderComments = parentComments.map((c) => {
-    return <ShowComment key={c.id} postId={postId} commentId={c.id}></ShowComment>;
+    return (
+      <ShowComment
+        key={c.id}
+        postId={postId}
+        commentId={c.id}
+        topicSlug={c.post.topic.slug}></ShowComment>
+    );
   });
 
   return (
